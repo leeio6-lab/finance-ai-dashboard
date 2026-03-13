@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>재무기획본부 AI기반 업무혁신 교육</title>
+    <link href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1B3A5C;
+            --primary-light: #2A5A8C;
+            --accent: #00B4D8;
+            --accent2: #0077B6;
+            --bg: #F0F4F8;
+            --card: #FFFFFF;
+            --text: #1a1a2e;
+            --text-secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gradient: linear-gradient(135deg, #1B3A5C 0%, #0077B6 50%, #00B4D8 100%);
+            --shadow: 0 4px 24px rgba(0,0,0,0.06);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Hero */
+        .hero {
+            background: var(--gradient);
+            color: white;
+            padding: 60px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0,180,216,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        .hero h1 span {
+            background: linear-gradient(90deg, #90E0EF, #CAF0F8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 700px;
+            line-height: 1.7;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat-value {
+            font-size: 36px;
+            font-weight: 800;
+        }
+        .hero-stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+
+        /* Navigation tabs */
+        .nav-bar {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+        }
+        .nav-link {
+            padding: 16px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Sections */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+        section {
+            padding: 60px 0;
+        }
+        .section-header {
+            margin-bottom: 40px;
+        }
+        .section-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent2), var(--accent));
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.3px;
+        }
+        .section-desc {
+            color: var(--text-secondary);
+            margin-top: 8px;
+            font-size: 15px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Overview Grid */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .overview-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+        .overview-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        .overview-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .icon-blue { background: #EBF5FF; color: var(--accent2); }
+        .icon-green { background: #ECFDF5; color: var(--success); }
+        .icon-amber { background: #FFFBEB; color: var(--warning); }
+
+        /* Vibe Coding Section */
+        .vibe-section {
+            background: linear-gradient(135deg, #1B3A5C 0%, #0d2137 100%);
+            border-radius: 20px;
+            padding: 48px;
+            color: white;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .vibe-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0,180,216,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .vibe-section h3 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .vibe-section p {
+            opacity: 0.9;
+            max-width: 650px;
+            line-height: 1.8;
+            position: relative;
+        }
+        .vibe-features {
+            display: flex;
+            gap: 32px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .vibe-feature {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .vibe-feature-num {
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .vibe-feature h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .vibe-feature p {
+            font-size: 13px;
+            opacity: 0.75;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 40px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--primary));
+            border-radius: 3px;
+        }
+        .timeline-item {
+            display: flex;
+            gap: 32px;
+            padding: 0 0 36px 0;
+            position: relative;
+        }
+        .timeline-marker {
+            width: 80px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px var(--accent);
+        }
+        .timeline-dot.special {
+            background: var(--warning);
+            box-shadow: 0 0 0 3px var(--warning);
+        }
+        .timeline-week {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent2);
+            margin-top: 8px;
+            text-align: center;
+        }
+        .timeline-card {
+            flex: 1;
+        }
+        .timeline-card .card {
+            position: relative;
+        }
+        .timeline-date {
+            display: inline-block;
+            background: var(--bg);
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .timeline-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .timeline-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        .tag-lecture { background: #FEF3C7; color: #92400E; }
+        .tag-practice { background: #DBEAFE; color: #1E40AF; }
+        .tag-project { background: #D1FAE5; color: #065F46; }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .team-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .team-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .team-info h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .team-info p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .team-count {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent2);
+            background: #EBF5FF;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-left: auto;
+        }
+
+        /* Task Table */
+        .dept-filter {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 2px solid #E2E8F0;
+            background: white;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--accent2);
+            background: var(--accent2);
+            color: white;
+        }
+
+        .task-table-wrap {
+            overflow-x: auto;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .task-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            min-width: 900px;
+        }
+        .task-table thead th {
+            background: var(--primary);
+            color: white;
+            padding: 14px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: left;
+            white-space: nowrap;
+        }
+        .task-table thead th:first-child { border-radius: 16px 0 0 0; }
+        .task-table thead th:last-child { border-radius: 0 16px 0 0; }
+        .task-table tbody tr {
+            border-bottom: 1px solid #F1F5F9;
+            transition: background 0.15s;
+        }
+        .task-table tbody tr:hover {
+            background: #F8FAFC;
+        }
+        .task-table tbody td {
+            padding: 14px 16px;
+            font-size: 13px;
+            vertical-align: top;
+        }
+        .task-name {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .dept-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .dept-planning { background: #DBEAFE; color: #1E40AF; }
+        .dept-acct1 { background: #FCE7F3; color: #9D174D; }
+        .dept-acct2 { background: #FEF3C7; color: #92400E; }
+        .dept-ir { background: #D1FAE5; color: #065F46; }
+        .dept-esg { background: #E0E7FF; color: #3730A3; }
+        .dept-finance { background: #F3E8FF; color: #6B21A8; }
+        .dept-shared { background: #CCFBF1; color: #134E4A; }
+
+        /* Budget */
+        .budget-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .budget-card {
+            text-align: center;
+        }
+        .budget-amount {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 12px 0 6px;
+        }
+        .budget-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .budget-detail {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 6px;
+            background: var(--bg);
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+
+        /* Prep Checklist */
+        .prep-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .prep-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .prep-check {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--accent);
+            font-size: 14px;
+            margin-top: 1px;
+        }
+        .prep-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            color: white;
+            padding: 32px 0;
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 28px; }
+            .hero-stats { gap: 24px; }
+            .hero-stat-value { font-size: 28px; }
+            .overview-grid { grid-template-columns: 1fr; }
+            .budget-grid { grid-template-columns: 1fr; }
+            .prep-list { grid-template-columns: 1fr; }
+            .vibe-section { padding: 28px; }
+            .timeline::before { left: 20px; }
+            .timeline-marker { width: 40px; }
+            section { padding: 40px 0; }
+            .container { padding: 0 16px; }
+            .nav-link { padding: 12px 16px; }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+
+        /* Progress bar for post-management */
+        .progress-bar-track {
+            width: 100%;
+            height: 8px;
+            background: #E2E8F0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 8px;
+            background: linear-gradient(90deg, var(--accent2), var(--accent));
+            transition: width 0.8s ease;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #EBF5FF, #F0F9FF);
+            border-left: 4px solid var(--accent2);
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 24px;
+        }
+        .highlight-box p {
+            font-size: 14px;
+            color: var(--primary);
+            line-height: 1.7;
+        }
+
+        /* Task category cards */
+        .category-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .cat-card {
+            text-align: center;
+            padding: 20px;
+        }
+        .cat-card-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .cat-card-count {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .cat-card-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .category-summary { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">AI Transformation 2026</div>
+            <h1>재무기획본부<br><span>AI기반 업무혁신 교육</span></h1>
+            <p class="hero-subtitle">
+                본부 구성원 누구나 바이브 코딩(Vibe Coding)을 학습하고,
+                기존 업무를 자동화하는 것을 넘어 업무 방식 전반을 AI 중심으로 재설계하여 높은 목표를 달성합니다.
+            </p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">27</div>
+                    <div class="hero-stat-label">교육 참석자</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">36+</div>
+                    <div class="hero-stat-label">AI 추진과제</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">8</div>
+                    <div class="hero-stat-label">주 집중 과정</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">7</div>
+                    <div class="hero-stat-label">참여 부서</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-inner">
+            <a href="#overview" class="nav-link active">프로젝트 개요</a>
+            <a href="#curriculum" class="nav-link">교육 커리큘럼</a>
+            <a href="#team" class="nav-link">참석자 현황</a>
+            <a href="#tasks" class="nav-link">AI 추진과제</a>
+            <a href="#budget" class="nav-link">예산 및 준비사항</a>
+        </div>
+    </nav>
+
+    <!-- Overview -->
+    <section id="overview">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">PROJECT OVERVIEW</div>
+                <h2 class="section-title">프로젝트 개요</h2>
+                <p class="section-desc">AI 중심의 업무 재설계를 통한 재무기획본부 디지털 전환</p>
+            </div>
+
+            <div class="overview-grid">
+                <div class="card overview-card animate-in">
+                    <div class="overview-card-icon icon-blue">&#x1F3AF;</div>
+                    <h3>목적</h3>
+                    <p>바이브 코딩을 학습하고, 업무 방식 전반을 AI 중심으로 재설계하여 업무 효율화 및 자동화를 넘어 높은 목표를 달성</p>
+                </div>
+                <div class="card overview-card animate-in delay-1">
+                    <div class="overview-card-icon icon-green">&#x1F4C5;</div>
+                    <h3>교육 기간</h3>
+                    <p>3월 23일 ~ 5월 12일 (약 2개월)<br>매주 1일, 3시간 집중 교육<br>이후 6개월 퍼실리데이터 사후관리</p>
+                </div>
+                <div class="card overview-card animate-in delay-2">
+                    <div class="overview-card-icon icon-amber">&#x1F4CD;</div>
+                    <h3>교육 장소</h3>
+                    <p>잠실 선착장 (집합교육)<br>1주차 신관 베어홀 (강연/Q&A)</p>
+                </div>
+            </div>
+
+            <!-- Vibe Coding -->
+            <div class="vibe-section">
+                <h3>Vibe Coding이란?</h3>
+                <p>AI를 활용하여 실무자가 설계한 비즈니스 로직을 즉시 코드와 시스템 형태로 구현하는 업무 방식입니다. 개발 부서에 의존하지 않고, 현업 부서가 직접 업무를 혁신합니다.</p>
+                <div class="vibe-features">
+                    <div class="vibe-feature">
+                        <div class="vibe-feature-num">1</div>
+                        <h4>데이터 분석</h4>
+                        <p>현업이 직접 데이터를 분석하고 인사이트를 도출</p>
+                    </div>
+                    <div class="vibe-feature">
+                        <div class="vibe-feature-num">2</div>
+                        <h4>업무 자동화</h4>
+                        <p>반복 업무를 줄이고 실시간 의사결정 환경 구축</p>
+                    </div>
+                    <div class="vibe-feature">
+                        <div class="vibe-feature-num">3</div>
+                        <h4>Web/App 대시보드</h4>
+                        <p>보고서 대신 실시간 대시보드를 직접 구축</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Timeline -->
+    <section id="curriculum" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">CURRICULUM</div>
+                <h2 class="section-title">8주 집중 교육 커리큘럼</h2>
+                <p class="section-desc">단계별로 설계된 실전 중심 교육 프로그램</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot special"></div>
+                        <div class="timeline-week">1주차</div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="card">
+                            <div class="timeline-date">3월 23일</div>
+                            <div class="timeline-title">Claude Code 소개 및 AX 인트로 발표</div>
+                            <div class="timeline-desc">AI 업무혁신의 비전과 방향을 공유하는 킥오프 세션</div>
+                            <span class="timeline-tag tag-lecture">조동근(조코딩) 대표님 강연</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-week">2주차</div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="card">
+                            <div class="timeline-date">3월 31일</div>
+                            <div class="timeline-title">Claude한테 일 잘 시키는 법</div>
+                            <div class="timeline-desc">Claude.md 제대로 쓰는 법 &mdash; 효과적인 프롬프팅 기법 학습</div>
+                            <span class="timeline-tag tag-practice">실습 중심</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-week">3주차</div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="card">
+                            <div class="timeline-date">4월 7일</div>
+                            <div class="timeline-title">커넥터 & Plug-in</div>
+                            <div class="timeline-desc">외부 시스템 연동 및 플러그인 활용법</div>
+                            <span class="timeline-tag tag-practice">실습 중심</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-week">4주차</div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="card">
+                            <div class="timeline-date">4월 14일</div>
+                            <div class="timeline-title">Database와 엑셀의 차이 (w. Supabase)</div>
+                            <div class="timeline-desc">데이터베이스 기초와 Supabase 활용 실습</div>
+                            <span class="timeline-tag tag-practice">실습 중심</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-week">5주차</div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="card">
+                            <div class="timeline-date">4월 21일</div>
+                            <div class="timeline-title">엑셀 자동화 + 대시보드 + 로그인 권한 부여</div>
+                            <div class="timeline-desc">실전 대시보드 구축 및 Vercel 배포 실습</div>
+                            <span class="timeline-tag tag-practice">Vercel 배포</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot special"></div>
+                        <div class="timeline-week">6주차</div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="card">
+                            <div class="timeline-date">4월 28일</div>
+                            <div class="timeline-title">과제 솔루션 설계 및 개발 Kick-off</div>
+                            <div class="timeline-desc">실전 프로젝트 설계 시작 및 개발 방향 수립</div>
+                            <span class="timeline-tag tag-lecture">권도균 대표님 강연</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-week">7주차</div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="card">
+                            <div class="timeline-date">5월 5일</div>
+                            <div class="timeline-title">실전 과제 개발 1차시</div>
+                            <div class="timeline-desc">각자의 AI 자동화 과제를 직접 개발</div>
+                            <span class="timeline-tag tag-project">프로젝트</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot special"></div>
+                        <div class="timeline-week">8주차</div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="card">
+                            <div class="timeline-date">5월 12일</div>
+                            <div class="timeline-title">실전 과제 개발 2차시 및 App Hub 등록</div>
+                            <div class="timeline-desc">최종 발표 및 App Hub 등록</div>
+                            <span class="timeline-tag tag-project">최종 발표</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <p><strong>사후 관리:</strong> 2개월 집중 과정 이후, 퍼실리데이터 프로그램으로 6개월간 사후 관리를 진행하여 학습 내용이 실무에 정착되도록 지원합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section id="team">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">PARTICIPANTS</div>
+                <h2 class="section-title">참석자 현황</h2>
+                <p class="section-desc">재무기획본부 7개 부서 27명 참여</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="card team-card">
+                    <div class="team-icon" style="background:#DBEAFE;color:#1E40AF;">기획</div>
+                    <div class="team-info">
+                        <h4>기획팀</h4>
+                        <p>신현덕, 정동희, 정효지, 서태원, 조연우, 마옥렬, 최지아</p>
+                    </div>
+                    <div class="team-count">7명</div>
+                </div>
+
+                <div class="card team-card">
+                    <div class="team-icon" style="background:#FCE7F3;color:#9D174D;">회1</div>
+                    <div class="team-info">
+                        <h4>회계1팀</h4>
+                        <p>윤덕상, 윤정훈, 김지환, 김진현</p>
+                    </div>
+                    <div class="team-count">4명</div>
+                </div>
+
+                <div class="card team-card">
+                    <div class="team-icon" style="background:#FEF3C7;color:#92400E;">회2</div>
+                    <div class="team-info">
+                        <h4>회계2팀</h4>
+                        <p>배주현, 박연나</p>
+                    </div>
+                    <div class="team-count">2명</div>
+                </div>
+
+                <div class="card team-card">
+                    <div class="team-icon" style="background:#D1FAE5;color:#065F46;">IR</div>
+                    <div class="team-info">
+                        <h4>IR팀</h4>
+                        <p>김선광, 윤다희, 민경호, 김효영</p>
+                    </div>
+                    <div class="team-count">4명</div>
+                </div>
+
+                <div class="card team-card">
+                    <div class="team-icon" style="background:#F3E8FF;color:#6B21A8;">재무</div>
+                    <div class="team-info">
+                        <h4>재무팀</h4>
+                        <p>전유진, 정민영, 홍영란</p>
+                    </div>
+                    <div class="team-count">3명</div>
+                </div>
+
+                <div class="card team-card">
+                    <div class="team-icon" style="background:#CCFBF1;color:#134E4A;">쉐드</div>
+                    <div class="team-info">
+                        <h4>쉐어드 담당</h4>
+                        <p>이지현, 강은지, 최근호, 대웅바이오 1명, 한올바이오 2명</p>
+                    </div>
+                    <div class="team-count">6명</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tasks -->
+    <section id="tasks" style="background:white;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">AI AUTOMATION TASKS</div>
+                <h2 class="section-title">AI 자동화 추진과제</h2>
+                <p class="section-desc">총 36개 과제 + 추가 발굴 예정</p>
+            </div>
+
+            <div class="category-summary">
+                <div class="card cat-card">
+                    <div class="cat-card-icon">&#x1F4CA;</div>
+                    <div class="cat-card-count">14</div>
+                    <div class="cat-card-label">대시보드/리포트</div>
+                </div>
+                <div class="card cat-card">
+                    <div class="cat-card-icon">&#x2699;&#xFE0F;</div>
+                    <div class="cat-card-count">13</div>
+                    <div class="cat-card-label">업무 자동화</div>
+                </div>
+                <div class="card cat-card">
+                    <div class="cat-card-icon">&#x1F916;</div>
+                    <div class="cat-card-count">4</div>
+                    <div class="cat-card-label">AI 챗봇</div>
+                </div>
+                <div class="card cat-card">
+                    <div class="cat-card-icon">&#x1F52E;</div>
+                    <div class="cat-card-count">5</div>
+                    <div class="cat-card-label">예측/분석 모델</div>
+                </div>
+            </div>
+
+            <div class="dept-filter">
+                <button class="filter-btn active" onclick="filterTasks('all')">전체</button>
+                <button class="filter-btn" onclick="filterTasks('기획팀')">기획팀</button>
+                <button class="filter-btn" onclick="filterTasks('회계1팀')">회계1팀</button>
+                <button class="filter-btn" onclick="filterTasks('회계2팀')">회계2팀</button>
+                <button class="filter-btn" onclick="filterTasks('IR팀')">IR팀</button>
+                <button class="filter-btn" onclick="filterTasks('재무팀')">재무팀</button>
+                <button class="filter-btn" onclick="filterTasks('쉐어드')">쉐어드</button>
+            </div>
+
+            <div class="task-table-wrap">
+                <table class="task-table" id="taskTable">
+                    <thead>
+                        <tr>
+                            <th style="width:40px">No</th>
+                            <th style="width:90px">부서</th>
+                            <th style="width:80px">담당자</th>
+                            <th style="width:200px">과제명</th>
+                            <th>개선방향</th>
+                            <th style="width:100px">목표기간</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-dept="기획팀">
+                            <td>1</td>
+                            <td><span class="dept-badge dept-planning">기획팀</span></td>
+                            <td>신현덕</td>
+                            <td class="task-name">횡성공장 가공비 대시보드</td>
+                            <td>AI 통한 월별 코스트센터별, 계정별 대시보드 구축 및 AI 시계열 예측 모델 적용</td>
+                            <td>3/9 배포완료</td>
+                        </tr>
+                        <tr data-dept="기획팀">
+                            <td>2</td>
+                            <td><span class="dept-badge dept-planning">기획팀</span></td>
+                            <td>신현덕</td>
+                            <td class="task-name">일매출 조회 자동화</td>
+                            <td>Excel VBA 및 SAP GUI Scripting 활용 클릭 한 번 자동 추출</td>
+                            <td>~4월 Go-live</td>
+                        </tr>
+                        <tr data-dept="기획팀">
+                            <td>3</td>
+                            <td><span class="dept-badge dept-planning">기획팀</span></td>
+                            <td>정동희</td>
+                            <td class="task-name">폐기충당금 자동화 (자동폐충기)</td>
+                            <td>SAP raw data 추출부터 산정로직, 현황 및 분석 대시보드 자동화</td>
+                            <td>~3월 이내</td>
+                        </tr>
+                        <tr data-dept="기획팀">
+                            <td>4</td>
+                            <td><span class="dept-badge dept-planning">기획팀</span></td>
+                            <td>정동희</td>
+                            <td class="task-name">정산 AI 챗봇 (코프로잼)</td>
+                            <td>Gemini GEMS 기반 Custom AI 챗봇으로 정산 프로세스 안내</td>
+                            <td>~4월 이내</td>
+                        </tr>
+                        <tr data-dept="기획팀">
+                            <td>5</td>
+                            <td><span class="dept-badge dept-planning">기획팀</span></td>
+                            <td>정효지</td>
+                            <td class="task-name">관계사 거래현황 대시보드</td>
+                            <td>월별 누적 실적 비교 분석, 한도 대비 실적 알림 및 시각화</td>
+                            <td>26년 1분기</td>
+                        </tr>
+                        <tr data-dept="기획팀">
+                            <td>6</td>
+                            <td><span class="dept-badge dept-planning">기획팀</span></td>
+                            <td>서태원</td>
+                            <td class="task-name">전략적 R&D 관리 체계 디지털 전환</td>
+                            <td>Claude AI 기반 Demo 대시보드 개발, 비임상-임상 연계 관리</td>
+                            <td>~12주 이내</td>
+                        </tr>
+                        <tr data-dept="기획팀">
+                            <td>7</td>
+                            <td><span class="dept-badge dept-planning">기획팀</span></td>
+                            <td>조연우</td>
+                            <td class="task-name">주간보고 자동화</td>
+                            <td>예측 숫자 입력만으로 보고양식 자동 산출, AI 예측 정확도 제고</td>
+                            <td>~3월 이내</td>
+                        </tr>
+                        <tr data-dept="기획팀">
+                            <td>8</td>
+                            <td><span class="dept-badge dept-planning">기획팀</span></td>
+                            <td>조연우</td>
+                            <td class="task-name">손익 드릴다운 레포트</td>
+                            <td>웹 화면으로 경영진이 품목별 매출/원가, 과거손익 드릴다운 조회</td>
+                            <td>~4월 중</td>
+                        </tr>
+                        <tr data-dept="기획팀">
+                            <td>9</td>
+                            <td><span class="dept-badge dept-planning">기획팀</span></td>
+                            <td>마옥렬</td>
+                            <td class="task-name">신제품 제조원가 추정</td>
+                            <td>표준화된 정보 입력 시 자동 계산되는 구조로 개선</td>
+                            <td>~3월 내</td>
+                        </tr>
+                        <tr data-dept="기획팀">
+                            <td>10</td>
+                            <td><span class="dept-badge dept-planning">기획팀</span></td>
+                            <td>마옥렬</td>
+                            <td class="task-name">수익성분석 자동화 + 히스토리 관리</td>
+                            <td>AI 기반 수익성 자동 분석 및 DB화된 히스토리 관리</td>
+                            <td>~상반기 내</td>
+                        </tr>
+                        <tr data-dept="기획팀">
+                            <td>11</td>
+                            <td><span class="dept-badge dept-planning">기획팀</span></td>
+                            <td>최지아</td>
+                            <td class="task-name">팀별 예산 조회 / 경비실적 레포트</td>
+                            <td>예산 소진율/잔여예산/추이 시각화 대시보드 자동 생성</td>
+                            <td>~3월 이내</td>
+                        </tr>
+                        <tr data-dept="기획팀">
+                            <td>12</td>
+                            <td><span class="dept-badge dept-planning">기획팀</span></td>
+                            <td>최지아</td>
+                            <td class="task-name">예산 관련 챗봇</td>
+                            <td>사내 예산 운영 규정/기준/FAQ 학습한 예산 전용 챗봇 구축</td>
+                            <td>~4월 이내</td>
+                        </tr>
+                        <tr data-dept="기획팀">
+                            <td>13</td>
+                            <td><span class="dept-badge dept-planning">기획팀</span></td>
+                            <td>최지아</td>
+                            <td class="task-name">정산 자동화 시스템</td>
+                            <td>시스템 기반 프로세스 표준화로 정산 리드타임 단축</td>
+                            <td>~4월 이내</td>
+                        </tr>
+                        <tr data-dept="회계1팀">
+                            <td>14</td>
+                            <td><span class="dept-badge dept-acct1">회계1팀</span></td>
+                            <td>윤덕상</td>
+                            <td class="task-name">IFRS 회계질의 챗봇</td>
+                            <td>법령/심판원 사례 기반 명확한 근거의 회계 AI 챗봇</td>
+                            <td>~9월 이내</td>
+                        </tr>
+                        <tr data-dept="회계1팀">
+                            <td>15</td>
+                            <td><span class="dept-badge dept-acct1">회계1팀</span></td>
+                            <td>윤덕상</td>
+                            <td class="task-name">IFRS 1118호 Conversion 프로그램</td>
+                            <td>컨버전 프로그램으로 1118호 기준 업데이트 간편화</td>
+                            <td>~12월 이내</td>
+                        </tr>
+                        <tr data-dept="회계1팀">
+                            <td>16</td>
+                            <td><span class="dept-badge dept-acct1">회계1팀</span></td>
+                            <td>윤정훈</td>
+                            <td class="task-name">내부거래대사 자동화</td>
+                            <td>AI 자동대사로 내부거래 정리 및 연결재무제표 효율화</td>
+                            <td>~5월 이내</td>
+                        </tr>
+                        <tr data-dept="회계1팀">
+                            <td>17</td>
+                            <td><span class="dept-badge dept-acct1">회계1팀</span></td>
+                            <td>윤정훈</td>
+                            <td class="task-name">법인카드 결의서 자동화</td>
+                            <td>AI 빅데이터 활용 법인카드 사용내역 자동 처리</td>
+                            <td>~4월 이내</td>
+                        </tr>
+                        <tr data-dept="회계1팀">
+                            <td>18</td>
+                            <td><span class="dept-badge dept-acct1">회계1팀</span></td>
+                            <td>김지환</td>
+                            <td class="task-name">B2C 손익 마감 자동화</td>
+                            <td>입력값 자동 검수로 마감 소요시간 단축 및 정확성 제고</td>
+                            <td>~5월 이내</td>
+                        </tr>
+                        <tr data-dept="회계1팀">
+                            <td>19</td>
+                            <td><span class="dept-badge dept-acct1">회계1팀</span></td>
+                            <td>김지환</td>
+                            <td class="task-name">대손/반품충당금 자동화</td>
+                            <td>클릭 한번으로 원하는 양식 자동 다운로드</td>
+                            <td>~6월 이내</td>
+                        </tr>
+                        <tr data-dept="회계1팀">
+                            <td>20</td>
+                            <td><span class="dept-badge dept-acct1">회계1팀</span></td>
+                            <td>김진현</td>
+                            <td class="task-name">회계증빙 취합 레포트</td>
+                            <td>AI에게 전표정보 제공 시 결재문서 및 증빙 자동 취합</td>
+                            <td>~5월 이내</td>
+                        </tr>
+                        <tr data-dept="회계1팀">
+                            <td>21</td>
+                            <td><span class="dept-badge dept-acct1">회계1팀</span></td>
+                            <td>김진현</td>
+                            <td class="task-name">명세서 작성 자동화</td>
+                            <td>AI가 SAP원장 기반 계정별명세서 자동 생성 및 검증</td>
+                            <td>~3월 이내</td>
+                        </tr>
+                        <tr data-dept="회계1팀">
+                            <td>22</td>
+                            <td><span class="dept-badge dept-acct1">회계1팀</span></td>
+                            <td>김진현</td>
+                            <td class="task-name">세무효과 예측 레포트</td>
+                            <td>당해 실적에 따라 공장이전세액감면효과, 법인세비용 자동 산출</td>
+                            <td>~5월 이내</td>
+                        </tr>
+                        <tr data-dept="회계2팀">
+                            <td>23</td>
+                            <td><span class="dept-badge dept-acct2">회계2팀</span></td>
+                            <td>배주현</td>
+                            <td class="task-name">손익 자동 업데이트 및 분석 알림</td>
+                            <td>Raw Data 입력 시 자동 손익 업데이트 및 분석 필요사항 시각화</td>
+                            <td>~5월 중</td>
+                        </tr>
+                        <tr data-dept="회계2팀">
+                            <td>24</td>
+                            <td><span class="dept-badge dept-acct2">회계2팀</span></td>
+                            <td>박연나</td>
+                            <td class="task-name">손익 분석 주요 증감 계정 자동 식별</td>
+                            <td>분석 기준 구조화로 계정 자동 선별 및 분석 질문 생성</td>
+                            <td>~5월 중</td>
+                        </tr>
+                        <tr data-dept="IR팀">
+                            <td>25</td>
+                            <td><span class="dept-badge dept-ir">IR팀</span></td>
+                            <td>김선광</td>
+                            <td class="task-name">EHS 경영관리용 Dashboard</td>
+                            <td>EHS 경영관리 데이터 시각화 대시보드</td>
+                            <td>-</td>
+                        </tr>
+                        <tr data-dept="IR팀">
+                            <td>26</td>
+                            <td><span class="dept-badge dept-ir">IR팀</span></td>
+                            <td>윤다희</td>
+                            <td class="task-name">개인정보 보호법 폐쇄형 프로그램</td>
+                            <td>폐쇄형 프로그램 개발로 보건관리자 전용 Tool</td>
+                            <td>-</td>
+                        </tr>
+                        <tr data-dept="IR팀">
+                            <td>27</td>
+                            <td><span class="dept-badge dept-ir">IR팀</span></td>
+                            <td>민경호</td>
+                            <td class="task-name">ESG 정보관리 시스템 개발</td>
+                            <td>ESG 관련 정보 통합 관리 시스템</td>
+                            <td>-</td>
+                        </tr>
+                        <tr data-dept="IR팀">
+                            <td>28</td>
+                            <td><span class="dept-badge dept-ir">IR팀</span></td>
+                            <td>김효영</td>
+                            <td class="task-name">주식시장 동향 및 업계 분석 리포트</td>
+                            <td>Big Data 활용 시장 동향 분석 자동화</td>
+                            <td>-</td>
+                        </tr>
+                        <tr data-dept="쉐어드">
+                            <td>29</td>
+                            <td><span class="dept-badge dept-shared">쉐어드1팀</span></td>
+                            <td>강은지</td>
+                            <td class="task-name">그룹사 손익 집계/분석 시스템</td>
+                            <td>법인별 손익 및 관리지표 입력-집계-검증 자동화 시스템</td>
+                            <td>26년 2분기</td>
+                        </tr>
+                        <tr data-dept="쉐어드">
+                            <td>30</td>
+                            <td><span class="dept-badge dept-shared">쉐어드1팀</span></td>
+                            <td>홍성우</td>
+                            <td class="task-name">대손충당금 자동화</td>
+                            <td>VBA 자동화로 거래처별 채권 상계 및 충당률 자동 반영</td>
+                            <td>~4월 이내</td>
+                        </tr>
+                        <tr data-dept="쉐어드">
+                            <td>31</td>
+                            <td><span class="dept-badge dept-shared">쉐어드1팀</span></td>
+                            <td>홍성우</td>
+                            <td class="task-name">고정자산 및 리스 자동화</td>
+                            <td>VBA 기반 고정자산 명세서/감가상각비/리스 산출 자동화</td>
+                            <td>~4월 이내</td>
+                        </tr>
+                        <tr data-dept="쉐어드">
+                            <td>32</td>
+                            <td><span class="dept-badge dept-shared">쉐어드1팀</span></td>
+                            <td>서일준</td>
+                            <td class="task-name">품목 손익조회 시스템</td>
+                            <td>웹 기반 사업소별/품목별 손익 조회 및 시각화</td>
+                            <td>~7월 중</td>
+                        </tr>
+                        <tr data-dept="쉐어드">
+                            <td>33</td>
+                            <td><span class="dept-badge dept-shared">쉐어드3팀</span></td>
+                            <td>최근호</td>
+                            <td class="task-name">GxP 프로젝트 수익성 분석</td>
+                            <td>수익성 분석 및 시뮬레이션 툴 구축, 견적 기초자료 활용</td>
+                            <td>~6월 중</td>
+                        </tr>
+                        <tr data-dept="재무팀">
+                            <td>34</td>
+                            <td><span class="dept-badge dept-finance">재무팀</span></td>
+                            <td>전유진</td>
+                            <td class="task-name">Cash Flow 현금흐름 자동 예측</td>
+                            <td>Power Query 활용 단기/중기 Cash Flow 분석 모델 구축</td>
+                            <td>~3개월 이내</td>
+                        </tr>
+                        <tr data-dept="재무팀">
+                            <td>35</td>
+                            <td><span class="dept-badge dept-finance">재무팀</span></td>
+                            <td>정민영</td>
+                            <td class="task-name">그룹사 자금현황 자동 집계 대시보드</td>
+                            <td>법인별 자금현황 데이터 자동 통합 및 대시보드 시각화</td>
+                            <td>~3개월 이내</td>
+                        </tr>
+                        <tr data-dept="재무팀">
+                            <td>36</td>
+                            <td><span class="dept-badge dept-finance">재무팀</span></td>
+                            <td>홍영란</td>
+                            <td class="task-name">외화 자금수지 예측 기반 자금관리</td>
+                            <td>외화 자금수지 데이터 자동 수집/분류 및 예측 체계 구축</td>
+                            <td>~3개월 이내</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Budget & Prep -->
+    <section id="budget">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">BUDGET & PREPARATION</div>
+                <h2 class="section-title">예산 및 사전 준비사항</h2>
+            </div>
+
+            <div class="budget-grid" style="margin-bottom:48px;">
+                <div class="card budget-card">
+                    <div style="font-size:32px;">&#x1F4B3;</div>
+                    <div class="budget-amount">900만원</div>
+                    <div class="budget-label">개인별 구독료 지원</div>
+                    <div class="budget-detail">Claude Code Max 1인당 월 $110 x 27명 (3개월)</div>
+                </div>
+                <div class="card budget-card">
+                    <div style="font-size:32px;">&#x1F393;</div>
+                    <div class="budget-amount">3,510만원</div>
+                    <div class="budget-label">교육비용</div>
+                    <div class="budget-detail">집중교육 2개월 2,700만원 + 사후관리 6개월 810만원</div>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-bottom:48px;">
+                <p><strong>Read Only DB 구축:</strong> IDS와 협의하여 3월 내 완료 목표. 실습 및 실전 과제 개발에 활용할 데이터베이스 환경을 사전 구축합니다.</p>
+            </div>
+
+            <h3 style="font-size:20px;font-weight:700;color:var(--primary);margin-bottom:24px;">교육생 사전 준비사항</h3>
+            <div class="prep-list">
+                <div class="prep-item">
+                    <div class="prep-check">&#x2713;</div>
+                    <div class="prep-text">Claude Desktop 앱 설치 및 Max $100(VAT 별도) 요금제 결제</div>
+                </div>
+                <div class="prep-item">
+                    <div class="prep-check">&#x2713;</div>
+                    <div class="prep-text">GitHub 계정 생성</div>
+                </div>
+                <div class="prep-item">
+                    <div class="prep-check">&#x2713;</div>
+                    <div class="prep-text">Vercel 계정 생성 (GitHub 연동)</div>
+                </div>
+                <div class="prep-item">
+                    <div class="prep-check">&#x2713;</div>
+                    <div class="prep-text">VS Code 설치</div>
+                </div>
+                <div class="prep-item">
+                    <div class="prep-check">&#x2713;</div>
+                    <div class="prep-text">Code 탭으로 간단히 웹페이지 하나 만들어서 Vercel로 배포해보기</div>
+                </div>
+                <div class="prep-item">
+                    <div class="prep-check">&#x2713;</div>
+                    <div class="prep-text">본인 업무에서 AI로 해결하고 싶은 비효율 포인트 3가지 정리</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>재무기획본부 AI기반 업무혁신 교육 &mdash; 2026</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        // Active nav on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 80;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Filter tasks
+        function filterTasks(dept) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === dept || (dept === 'all' && btn.textContent === '전체')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            document.querySelectorAll('#taskTable tbody tr').forEach(row => {
+                if (dept === 'all') {
+                    row.style.display = '';
+                } else {
+                    row.style.display = row.dataset.dept.includes(dept) ? '' : 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
